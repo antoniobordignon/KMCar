@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ShowCard extends StatelessWidget {
-  final String tripName;
   final String km;
   final String driver;
   final String destination;
@@ -9,7 +8,6 @@ class ShowCard extends StatelessWidget {
 
   const ShowCard({
     super.key,
-    required this.tripName,
     required this.km,
     required this.driver,
     required this.destination,
@@ -26,23 +24,6 @@ class ShowCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                const Text(
-                  'Nome da viagem:',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-                const SizedBox(width: 5.0),
-                Text(
-                  tripName,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-              ],
-            ),
             Row(
               children: <Widget>[
                 const Text('Quilometragem:'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:km_car/common/constants/routes.dart';
-import 'package:km_car/features/home/home_page.dart';
+import 'package:km_car/features/add_info/presentation/add_info_page.dart';
+import 'package:km_car/features/home/presentation/home_page.dart';
 
 
 void main() {
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
       initialRoute: NamedRoute.home,
       routes: {
         NamedRoute.home: (context) => const HomePage(),
+        NamedRoute.addInfo: (context) => const AddInfoPage(),
       }
     );
   }

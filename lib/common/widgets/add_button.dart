@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:km_car/common/constants/text_style.dart';
 
-class Button extends StatelessWidget {
+class AddButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
   final Icon? icon;
   final double height;
   
-  const Button({
+  const AddButton({
     super.key,
     this.onPressed,
     required this.text,

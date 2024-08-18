@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:km_car/common/constants/routes.dart';
 import 'package:km_car/common/constants/text_style.dart';
 import 'package:km_car/common/widgets/add_button.dart';
 import 'package:km_car/common/widgets/card.dart';
-import 'package:km_car/features/home/home_page_controller.dart';
+import 'package:km_car/features/home/presentation/home_page_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,15 +28,15 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const SizedBox(height: 30.0),
                     Text('KMCar',
-                        textAlign: TextAlign.center,
-                        style: AppTextStyle.bigText.copyWith(
-                          color: Colors.black,
-                        )),
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.bigText.copyWith(
+                        color: Colors.black,
+                      )
+                    ),
                     const SizedBox(height: 20.0),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 6.0),
                       child: ShowCard(
-                        tripName: 'Viagem à praia',
                         km: '150 km',
                         driver: 'João Silva',
                         destination: 'Praia de Copacabana',
@@ -47,9 +48,11 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-                child: Button(
-                  onPressed: () {
-                  },
+                child: AddButton(
+                  onPressed: () => Navigator.pushNamed(
+                    context, 
+                    NamedRoute.addInfo,
+                  ),
                   text: "Adicionar registro",
                   icon: const Icon(Icons.add),
                 ),
