@@ -13,6 +13,8 @@ class AddInfoPageController extends ChangeNotifier {
 
   File? get selectedImage => _selectedImage;
 
+
+
   Future<void> pickImage(BuildContext context) async {
     final XFile? image = await picker.pickImage(source: ImageSource.camera);
 
@@ -26,7 +28,7 @@ class AddInfoPageController extends ChangeNotifier {
       await image.saveTo(imagePath);
       _selectedImage = File(imagePath);
       notifyListeners();
-log('Imagem salva em: $imagePath');
+      log('Imagem salva em: $imagePath');
       if (!context.mounted) return;
       Navigator.pushNamedAndRemoveUntil(
         context,
