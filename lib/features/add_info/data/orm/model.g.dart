@@ -20,9 +20,9 @@ class $TripsTable extends Trips with TableInfo<$TripsTable, Trip> {
   static const VerificationMeta _kilometragemMeta =
       const VerificationMeta('kilometragem');
   @override
-  late final GeneratedColumn<int> kilometragem = GeneratedColumn<int>(
+  late final GeneratedColumn<double> kilometragem = GeneratedColumn<double>(
       'kilometragem', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.double, requiredDuringInsert: true);
   static const VerificationMeta _motoristaMeta =
       const VerificationMeta('motorista');
   @override
@@ -99,7 +99,7 @@ class $TripsTable extends Trips with TableInfo<$TripsTable, Trip> {
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       kilometragem: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kilometragem'])!,
+          .read(DriftSqlType.double, data['${effectivePrefix}kilometragem'])!,
       motorista: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}motorista'])!,
       destino: attachedDatabase.typeMapping
@@ -117,7 +117,7 @@ class $TripsTable extends Trips with TableInfo<$TripsTable, Trip> {
 
 class Trip extends DataClass implements Insertable<Trip> {
   final int id;
-  final int kilometragem;
+  final double kilometragem;
   final String motorista;
   final String destino;
   final String? imagePath;
@@ -131,7 +131,7 @@ class Trip extends DataClass implements Insertable<Trip> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['kilometragem'] = Variable<int>(kilometragem);
+    map['kilometragem'] = Variable<double>(kilometragem);
     map['motorista'] = Variable<String>(motorista);
     map['destino'] = Variable<String>(destino);
     if (!nullToAbsent || imagePath != null) {
@@ -157,7 +157,7 @@ class Trip extends DataClass implements Insertable<Trip> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Trip(
       id: serializer.fromJson<int>(json['id']),
-      kilometragem: serializer.fromJson<int>(json['kilometragem']),
+      kilometragem: serializer.fromJson<double>(json['kilometragem']),
       motorista: serializer.fromJson<String>(json['motorista']),
       destino: serializer.fromJson<String>(json['destino']),
       imagePath: serializer.fromJson<String?>(json['imagePath']),
@@ -168,7 +168,7 @@ class Trip extends DataClass implements Insertable<Trip> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'kilometragem': serializer.toJson<int>(kilometragem),
+      'kilometragem': serializer.toJson<double>(kilometragem),
       'motorista': serializer.toJson<String>(motorista),
       'destino': serializer.toJson<String>(destino),
       'imagePath': serializer.toJson<String?>(imagePath),
@@ -177,7 +177,7 @@ class Trip extends DataClass implements Insertable<Trip> {
 
   Trip copyWith(
           {int? id,
-          int? kilometragem,
+          double? kilometragem,
           String? motorista,
           String? destino,
           Value<String?> imagePath = const Value.absent()}) =>
@@ -228,7 +228,7 @@ class Trip extends DataClass implements Insertable<Trip> {
 
 class TripsCompanion extends UpdateCompanion<Trip> {
   final Value<int> id;
-  final Value<int> kilometragem;
+  final Value<double> kilometragem;
   final Value<String> motorista;
   final Value<String> destino;
   final Value<String?> imagePath;
@@ -241,7 +241,7 @@ class TripsCompanion extends UpdateCompanion<Trip> {
   });
   TripsCompanion.insert({
     this.id = const Value.absent(),
-    required int kilometragem,
+    required double kilometragem,
     required String motorista,
     required String destino,
     this.imagePath = const Value.absent(),
@@ -250,7 +250,7 @@ class TripsCompanion extends UpdateCompanion<Trip> {
         destino = Value(destino);
   static Insertable<Trip> custom({
     Expression<int>? id,
-    Expression<int>? kilometragem,
+    Expression<double>? kilometragem,
     Expression<String>? motorista,
     Expression<String>? destino,
     Expression<String>? imagePath,
@@ -266,7 +266,7 @@ class TripsCompanion extends UpdateCompanion<Trip> {
 
   TripsCompanion copyWith(
       {Value<int>? id,
-      Value<int>? kilometragem,
+      Value<double>? kilometragem,
       Value<String>? motorista,
       Value<String>? destino,
       Value<String?>? imagePath}) {
@@ -286,7 +286,7 @@ class TripsCompanion extends UpdateCompanion<Trip> {
       map['id'] = Variable<int>(id.value);
     }
     if (kilometragem.present) {
-      map['kilometragem'] = Variable<int>(kilometragem.value);
+      map['kilometragem'] = Variable<double>(kilometragem.value);
     }
     if (motorista.present) {
       map['motorista'] = Variable<String>(motorista.value);
@@ -326,14 +326,14 @@ abstract class _$AppDb extends GeneratedDatabase {
 
 typedef $$TripsTableCreateCompanionBuilder = TripsCompanion Function({
   Value<int> id,
-  required int kilometragem,
+  required double kilometragem,
   required String motorista,
   required String destino,
   Value<String?> imagePath,
 });
 typedef $$TripsTableUpdateCompanionBuilder = TripsCompanion Function({
   Value<int> id,
-  Value<int> kilometragem,
+  Value<double> kilometragem,
   Value<String> motorista,
   Value<String> destino,
   Value<String?> imagePath,
@@ -346,7 +346,7 @@ class $$TripsTableFilterComposer extends FilterComposer<_$AppDb, $TripsTable> {
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get kilometragem => $state.composableBuilder(
+  ColumnFilters<double> get kilometragem => $state.composableBuilder(
       column: $state.table.kilometragem,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
@@ -375,7 +375,7 @@ class $$TripsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get kilometragem => $state.composableBuilder(
+  ColumnOrderings<double> get kilometragem => $state.composableBuilder(
       column: $state.table.kilometragem,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
@@ -417,7 +417,7 @@ class $$TripsTableTableManager extends RootTableManager<
               $$TripsTableOrderingComposer(ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int> kilometragem = const Value.absent(),
+            Value<double> kilometragem = const Value.absent(),
             Value<String> motorista = const Value.absent(),
             Value<String> destino = const Value.absent(),
             Value<String?> imagePath = const Value.absent(),
@@ -431,7 +431,7 @@ class $$TripsTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required int kilometragem,
+            required double kilometragem,
             required String motorista,
             required String destino,
             Value<String?> imagePath = const Value.absent(),

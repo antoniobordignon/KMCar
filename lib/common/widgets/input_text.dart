@@ -60,56 +60,63 @@ class _InputTextState extends State<InputText> {
           horizontal: 24.0,
           vertical: 12.0,
         ),
-      child: TextFormField(
-      
-        onChanged: (value) {
-          if(value.isEmpty) {
-            setState((){
-             _helperText = widget.helperText;
-            });
-          } else if (value.length  == 1){
-            setState(() {
-              _helperText = null;
-            });
-          }
-        },
-        validator: widget.validator,
-        style: AppTextStyle.inputText.copyWith(color: Theme.of(context).colorScheme.primary),
-        inputFormatters: widget.inputFormatters,
-        obscureText: widget.obscureText ?? false,
-        textInputAction: widget.textInputAction,       
-        maxLength: widget.maxLength,
-        keyboardType: widget.keyboardType,
-        controller: widget.controller,
-        decoration: InputDecoration(
-          errorMaxLines: 6, 
-          helperText: _helperText,
-          helperMaxLines: 3,
-          errorStyle: const TextStyle(color: Colors.red),
-          suffixIcon: widget.suffixIcon,
-          hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).colorScheme.outline),
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelText: widget.labelText?.toUpperCase(),
-          labelStyle: AppTextStyle.inputLabelText.copyWith(color: Colors.black),
-          border: defaultBorder,
-          focusedBorder: defaultBorder,
-          errorBorder: defaultBorder.copyWith(
-            borderSide: const BorderSide(
-              color: Colors.red,
-            ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text('${widget.labelText ?? ''} :'),
+            ],
           ),
-          focusedErrorBorder: defaultBorder.copyWith(
-            borderSide: const BorderSide(
-              color: Colors.red,
-            ),
+          TextFormField(
+            onChanged: (value) {
+              if(value.isEmpty) {
+                setState((){
+                 _helperText = widget.helperText;
+                });
+              } else if (value.length  == 1){
+                setState(() {
+                  _helperText = null;
+                });
+              }
+            },
+            validator: widget.validator,
+            style: AppTextStyle.inputText.copyWith(color: Theme.of(context).colorScheme.primary),
+            inputFormatters: widget.inputFormatters,
+            obscureText: widget.obscureText ?? false,
+            textInputAction: widget.textInputAction,       
+            maxLength: widget.maxLength,
+            keyboardType: widget.keyboardType,
+            controller: widget.controller,
+            decoration: InputDecoration(
+              errorMaxLines: 6, 
+              helperText: _helperText,
+              helperMaxLines: 3,
+              errorStyle: const TextStyle(color: Colors.red),
+              suffixIcon: widget.suffixIcon,
+              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).colorScheme.outline),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              labelStyle: AppTextStyle.inputLabelText.copyWith(color: Colors.black),
+              border: defaultBorder,
+              focusedBorder: defaultBorder,
+              errorBorder: defaultBorder.copyWith(
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                ),
+              ),
+              focusedErrorBorder: defaultBorder.copyWith(
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                ),
+              ),
+              enabledBorder: defaultBorder.copyWith(
+                borderSide: const BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              disabledBorder: defaultBorder,
+            )
           ),
-          enabledBorder: defaultBorder.copyWith(
-            borderSide: const BorderSide(
-              color: Colors.black,
-            ),
-          ),
-          disabledBorder: defaultBorder,
-        )
+        ],
       ),
     );
   }

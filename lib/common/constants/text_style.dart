@@ -9,7 +9,7 @@ class AppTextStyle {
     fontFamily: 'Kanit',
   );
   static const TextStyle bigText = TextStyle(
-    fontSize: 32.0,
+    fontSize: 28.0,
     fontWeight: FontWeight.w500,
     fontFamily: 'Kanit',
   );
