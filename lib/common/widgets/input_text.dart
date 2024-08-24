@@ -88,6 +88,7 @@ class _InputTextState extends State<InputText> {
             keyboardType: widget.keyboardType,
             controller: widget.controller,
             decoration: InputDecoration(
+              counterText: '',
               errorMaxLines: 6, 
               helperText: _helperText,
               helperMaxLines: 3,

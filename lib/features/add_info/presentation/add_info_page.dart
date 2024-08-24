@@ -14,7 +14,6 @@ import 'package:drift/drift.dart' as drift;
 
 class AddInfoPage extends StatefulWidget {
   const AddInfoPage({super.key});
-
   @override
   State<AddInfoPage> createState() => _AddInfoPageState();
 }
@@ -24,7 +23,6 @@ class _AddInfoPageState extends State<AddInfoPage> {
   final _kmController = TextEditingController();
   final _driverController = TextEditingController();
   final _destinationController = TextEditingController();
-  
   final AddInfoPageController controller = AddInfoPageController();
   late AppDb _db;
 
@@ -37,7 +35,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
-              'Camera permission is denied. Please allow camera access.'),
+              'O acesso à câmera foi negado.'),
           ),
         );
       }
@@ -90,7 +88,8 @@ class _AddInfoPageState extends State<AddInfoPage> {
                         labelText: "Quilometragem",
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
-                              (RegExp(r'(^\d*\.?,?\d*)'))) //verificar validacao
+                            RegExp(r'^\d{0,7}(\.\d{0,3})?'),
+                          )
                         ],
                         keyboardType: TextInputType.number,
                         validator: (value) {
@@ -106,6 +105,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
                       InputText(
                         controller: _driverController,
                         labelText: "Motorista",
+                        maxLength: 50,
                         validator: (value) {
                           if (value == null ||
                               value.toString().trim().isEmpty) {
@@ -119,6 +119,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
                       InputText(
                         controller: _destinationController,
                         labelText: "Destino",
+                        maxLength: 50,
                         validator: (value) {
                           if (value == null ||
                               value.toString().trim().isEmpty) {
@@ -145,7 +146,9 @@ class _AddInfoPageState extends State<AddInfoPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: controller.hasImage ? Image.file(File(controller.imagePath!)) : const SizedBox(),
+                        child: controller.hasImage
+                            ? Image.file(File(controller.imagePath!))
+                            : const SizedBox(),
                       ),
                     ],
                   ),
@@ -185,7 +188,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
                         child: ListBody(
                           children: <Widget>[
                             Text(
-                              'Por gentileza tire uma foto antes de salvar.'),
+                                'Por gentileza tire uma foto antes de salvar.'),
                           ],
                         ),
                       ),

@@ -84,50 +84,84 @@ class ShowCard extends StatelessWidget {
       child: Card(
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  const Text('Quilometragem:'),
-                  const SizedBox(width: 5.0),
-                  Text(
-                    km,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 5.0),
+                    Text('Quilometragem: $km'),
+                    const SizedBox(height: 5.0),
+                    Text('Motorista: $driver'),
+                    const SizedBox(height: 5.0),
+                    Text('Destino: $destination'),
+                    const SizedBox(height: 5.0),
+                  ],
+                ),
               ),
-              Row(
-                children: <Widget>[
-                  const Text('Motorista:'),
-                  const SizedBox(width: 5.0),
-                  Text(driver),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  const Text('Destino:'),
-                  const SizedBox(width: 5.0),
-                  Text(destination),
-                ],
-              ),
-              const SizedBox(height: 15.0),
-              Center(
-                child: photo.isNotEmpty
-                    ? Image.file(
-                        File(photo),
-                        height: 120,
-                      )
-                    : const Text('Sem imagem disponível'),
-              ),
+              photo.isNotEmpty
+                  ? Image.file(
+                      File(photo),
+                      width: 100,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    )
+                  : const Text('Sem imagem disponível'),
             ],
           ),
         ),
       ),
+
+      // child: Card(
+      //   color: Colors.white,
+      //   child: Padding(
+      //     padding: const EdgeInsets.all(16.0),
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       mainAxisSize: MainAxisSize.min,
+      //       children: <Widget>[
+      //         Row(
+      //           children: <Widget>[
+      //             const Text('Quilometragem:'),
+      //             const SizedBox(width: 5.0),
+      //             Text(
+      //               km,
+      //               style: const TextStyle(
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         Row(
+      //           children: <Widget>[
+      //             const Text('Motorista:'),
+      //             const SizedBox(width: 5.0),
+      //             Text(driver),
+      //           ],
+      //         ),
+      //         Row(
+      //           children: <Widget>[
+      //             const Text('Destino:'),
+      //             const SizedBox(width: 5.0),
+      //             Text(destination),
+      //           ],
+      //         ),
+      //         const SizedBox(height: 15.0),
+      //         Center(
+      //           child: photo.isNotEmpty
+      //               ? Image.file(
+      //                   File(photo),
+      //                   height: 120,
+      //                 )
+      //               : const Text('Sem imagem disponível'),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

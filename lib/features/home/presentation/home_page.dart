@@ -60,21 +60,21 @@ class _HomePageState extends State<HomePage> {
                   itemCount: trips.length,
                   itemBuilder: (context, index) {
                     final trip = trips[index];
-                    return Card(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 20.0),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 6.0),
-                            child: ShowCard(
-                              km: trip.kilometragem.toStringAsFixed(3),
-                              driver: trip.motorista,
-                              destination: trip.destino,
-                              photo: trip.imagePath != null ? trip.imagePath! : '',
-                            ),
+                    return Column(
+                      children: [
+                        const SizedBox(height: 2.0),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7.0, vertical: 7.0),
+                          child: ShowCard(
+                            km: trip.kilometragem.toStringAsFixed(3),
+                            driver: trip.motorista,
+                            destination: trip.destino,
+                            photo:
+                                trip.imagePath != null ? trip.imagePath! : '',
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     );
                   });
             }
