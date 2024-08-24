@@ -136,7 +136,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
                             children: [
                               AddButton(
                                 onPressed: _handleAddButtonPress,
-                                text: "Adicionar foto da quilometragem",
+                                text: "Adicionar foto",
                                 icon: const Icon(Icons.add_a_photo_outlined),
                               ),
                             ],
@@ -145,7 +145,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: controller.hasImage ? Image.file(File(controller.imagePath!)) : SizedBox(),
+                        child: controller.hasImage ? Image.file(File(controller.imagePath!)) : const SizedBox(),
                       ),
                     ],
                   ),

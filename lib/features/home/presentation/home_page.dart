@@ -65,13 +65,12 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           const SizedBox(height: 20.0),
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 2.0, vertical: 6.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 6.0),
                             child: ShowCard(
-                              km: '${trip.kilometragem.toStringAsFixed(3)}',
-                              driver: '${trip.motorista}',
-                              destination: '${trip.destino}',
-                              photo: trip.imagePath != null ? trip.imagePath!.replaceAll('"', "") : '',
+                              km: trip.kilometragem.toStringAsFixed(3),
+                              driver: trip.motorista,
+                              destination: trip.destino,
+                              photo: trip.imagePath != null ? trip.imagePath! : '',
                             ),
                           ),
                         ],
