@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:km_car/common/constants/routes.dart';
+import 'package:km_car/features/add_info/data/orm/model.dart';
 import 'package:km_car/features/add_info/presentation/add_info_page.dart';
 import 'package:km_car/features/home/presentation/home_page.dart';
 
+// Chamada do banco.
+var db = AppDb();
 void main() {
   runApp(const App());
 }

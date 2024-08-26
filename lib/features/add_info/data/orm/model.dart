@@ -9,6 +9,7 @@ import 'package:km_car/features/add_info/data/repositories/image_repository.dart
 
 part 'model.g.dart';
 
+// Fazendo chamada do banco.
 LazyDatabase _openConnection(){
   return LazyDatabase(() async {
 
@@ -20,6 +21,7 @@ LazyDatabase _openConnection(){
 }
 
 @DriftDatabase(tables: [Trips])
+// Criando rotas.
 class AppDb extends _$AppDb{
 
   AppDb() : super(_openConnection());

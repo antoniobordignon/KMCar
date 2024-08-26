@@ -8,6 +8,7 @@ import 'package:km_car/common/widgets/input_text.dart';
 import 'package:km_car/common/constants/text_style.dart';
 import 'package:km_car/features/add_info/data/orm/model.dart';
 import 'package:km_car/features/add_info/presentation/add_info_page_controller.dart';
+import 'package:km_car/main.dart';
 import 'package:km_car/service/implement/permission_service_impl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:drift/drift.dart' as drift;
@@ -18,7 +19,6 @@ class AddInfoPage extends StatefulWidget {
   State<AddInfoPage> createState() => _AddInfoPageState();
 }
 
-//camera authorization
 class _AddInfoPageState extends State<AddInfoPage> {
   final _kmController = TextEditingController();
   final _driverController = TextEditingController();
@@ -26,10 +26,11 @@ class _AddInfoPageState extends State<AddInfoPage> {
   final AddInfoPageController controller = AddInfoPageController();
   late AppDb _db;
 
+// Função para solicitar a liberação da câmera.
   Future<void> _handleAddButtonPress() async {
-    final status = await getCameraPermission();
+    final cameraStatus = await getCameraPermission();
     if (mounted) {
-      if (status.isGranted) {
+      if (cameraStatus.isGranted) {
         controller.pickImage(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -46,19 +47,18 @@ class _AddInfoPageState extends State<AddInfoPage> {
   void initState() {
     super.initState();
 
-    _db = AppDb();
+    _db = db;
   }
 
   @override
   void dispose() {
-    _db.close();
     _kmController.dispose();
     _driverController.dispose();
     _destinationController.dispose();
     super.dispose();
   }
 
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +71,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
             ),
           ),
           centerTitle: true),
+      //  Formulario com as informações que serão adicionadas.
       body: ListenableBuilder(
         listenable: controller,
         builder: (context, child) {
@@ -158,6 +159,7 @@ class _AddInfoPageState extends State<AddInfoPage> {
           );
         },
       ),
+      //  Passando informações para o banco de dados.
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: AddButton(
@@ -174,10 +176,12 @@ class _AddInfoPageState extends State<AddInfoPage> {
                   imagePath: drift.Value(controller.imagePath),
                 );
                 await _db.insertTrip(entity);
-
-                Navigator.pushNamedAndRemoveUntil(
-                    context, NamedRoute.home, (route) => false);
+                if (context.mounted) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, NamedRoute.home, (route) => false);
+                }
               } else {
+                // Caso não tenha sedo tirado foto será exibido o alerta abaixo.
                 showDialog<void>(
                   context: context,
                   barrierDismissible: false,

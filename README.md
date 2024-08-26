@@ -1,19 +1,23 @@
 # km_car
 
-A new Flutter project.
+KMCar é um aplicativo desenvolvido para monitorar e registrar os quilômetros percorridos em suas viagens.
 
-## Getting Started
+## Inicie o projeto
 
-This project is a starting point for a Flutter application.
+Esse projeto foi gerado apartir da versão 3.24.1 do flutter.
 
-A few resources to get you started if this is your first Flutter project:
+### dependências utilizadas:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  - Image Picker
+  - Path Provider
+  - Permission Handler
+  - Drift
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Baixar as dependencias do projeto: 
 
-To build drift:
-dart run build_runner build --delete-conflicting-outputs
+`` flutter pub get ``
+
+Rodar o comando para gerar o banco de dados SQL:
+
+`` dart run build_runner build --delete-conflicting-outputs `` 
+

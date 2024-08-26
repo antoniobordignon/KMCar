@@ -1,25 +1,60 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:km_car/common/constants/routes.dart';
+import 'package:km_car/features/add_info/data/orm/model.dart';
+import 'package:km_car/main.dart';
 
 class ShowCard extends StatelessWidget {
-  final String km;
-  final String driver;
-  final String destination;
-  final String photo;
+  final Trip trip;
 
   const ShowCard({
     super.key,
-    required this.km,
-    required this.driver,
-    required this.destination,
-    required this.photo,
+    required this.trip,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () {
+        // Quando segurar precionado ira executar função para deletar registro, solictando se o usuário realmente quer deletar.
+        showGeneralDialog(
+          context: context,
+          barrierDismissible: true,
+          barrierLabel: 'exibirImagemDialog',
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return Container();
+          },
+          transitionBuilder: (context, a1, a2, child) {
+            return AlertDialog(
+              title: const Text("Atenção"),
+              content: const Text("Você realmente quer deletar o registro?"),
+              actions: [
+                TextButton(
+                  child: const Text("Não"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FilledButton(
+                  child: const Text("sim"),
+                  onPressed: () async {
+                    await db.deleteTrip(trip.id);
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        NamedRoute.home,
+                      );
+                    }
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
       onTap: () {
+        // Quando clicado ira trazer a imagem com a quilometragem.
         showGeneralDialog(
           context: context,
           barrierDismissible: true,
@@ -41,7 +76,7 @@ class ShowCard extends StatelessWidget {
                   content: SizedBox(
                     width: 1280,
                     height: 800 * 0.7,
-                    child: photo.isNotEmpty
+                    child: trip.imagePath!.isNotEmpty
                         ? SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
@@ -53,7 +88,7 @@ class ShowCard extends StatelessWidget {
                                   height: double.infinity,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: FileImage(File(photo)),
+                                      image: FileImage(File(trip.imagePath!)),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -62,7 +97,7 @@ class ShowCard extends StatelessWidget {
                                   color: Colors.black.withOpacity(0.5),
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    '$km KM',
+                                    '${trip.kilometragem.toStringAsFixed(3)} KM',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
@@ -81,6 +116,7 @@ class ShowCard extends StatelessWidget {
           },
         );
       },
+      // Card passando informações de viagens.
       child: Card(
         color: Colors.white,
         child: Padding(
@@ -93,18 +129,19 @@ class ShowCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 5.0),
-                    Text('Quilometragem: $km'),
+                    Text(
+                        'Quilometragem: ${trip.kilometragem.toStringAsFixed(3)}'),
                     const SizedBox(height: 5.0),
-                    Text('Motorista: $driver'),
+                    Text('Motorista: ${trip.motorista}'),
                     const SizedBox(height: 5.0),
-                    Text('Destino: $destination'),
+                    Text('Destino: ${trip.destino}'),
                     const SizedBox(height: 5.0),
                   ],
                 ),
               ),
-              photo.isNotEmpty
+              trip.imagePath!.isNotEmpty
                   ? Image.file(
-                      File(photo),
+                      File(trip.imagePath!),
                       width: 100,
                       height: 120,
                       fit: BoxFit.cover,
@@ -114,54 +151,6 @@ class ShowCard extends StatelessWidget {
           ),
         ),
       ),
-
-      // child: Card(
-      //   color: Colors.white,
-      //   child: Padding(
-      //     padding: const EdgeInsets.all(16.0),
-      //     child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       mainAxisSize: MainAxisSize.min,
-      //       children: <Widget>[
-      //         Row(
-      //           children: <Widget>[
-      //             const Text('Quilometragem:'),
-      //             const SizedBox(width: 5.0),
-      //             Text(
-      //               km,
-      //               style: const TextStyle(
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: <Widget>[
-      //             const Text('Motorista:'),
-      //             const SizedBox(width: 5.0),
-      //             Text(driver),
-      //           ],
-      //         ),
-      //         Row(
-      //           children: <Widget>[
-      //             const Text('Destino:'),
-      //             const SizedBox(width: 5.0),
-      //             Text(destination),
-      //           ],
-      //         ),
-      //         const SizedBox(height: 15.0),
-      //         Center(
-      //           child: photo.isNotEmpty
-      //               ? Image.file(
-      //                   File(photo),
-      //                   height: 120,
-      //                 )
-      //               : const Text('Sem imagem disponível'),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

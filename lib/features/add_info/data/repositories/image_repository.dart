@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+// Criando tabela no banco.
 class Trips extends Table{
   IntColumn get id => integer().autoIncrement()();
   RealColumn get kilometragem => real()();

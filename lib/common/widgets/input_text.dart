@@ -51,7 +51,7 @@ class _InputTextState extends State<InputText> {
     super.initState();
     _helperText = widget.helperText;
   }
-
+  // Imput text.
   @override
   Widget build(BuildContext context) {
     return Padding(

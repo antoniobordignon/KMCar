@@ -4,6 +4,7 @@ import 'package:km_car/common/constants/text_style.dart';
 import 'package:km_car/common/widgets/add_button.dart';
 import 'package:km_car/common/widgets/show_card.dart';
 import 'package:km_car/features/add_info/data/orm/model.dart';
+import 'package:km_car/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,12 +20,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    _db = AppDb();
+    _db = db; 
   }
 
   @override
   void dispose() {
-    _db.close();
     super.dispose();
   }
 
@@ -54,34 +54,51 @@ class _HomePageState extends State<HomePage> {
               child: Text(snapshot.error.toString()),
             );
           }
+          // Caso exista registro de viagem será exibido usando o card abaixo.
           if (snapshot.connectionState == ConnectionState.done) {
             if (trips != null) {
-              return ListView.builder(
-                  itemCount: trips.length,
-                  itemBuilder: (context, index) {
-                    final trip = trips[index];
-                    return Column(
-                      children: [
-                        const SizedBox(height: 2.0),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 7.0, vertical: 7.0),
-                          child: ShowCard(
-                            km: trip.kilometragem.toStringAsFixed(3),
-                            driver: trip.motorista,
-                            destination: trip.destino,
-                            photo:
-                                trip.imagePath != null ? trip.imagePath! : '',
+              if (trips.isNotEmpty) {
+                return ListView.builder(
+                    itemCount: trips.length,
+                    itemBuilder: (context, index) {
+                      final trip = trips[index];
+                      return Column(
+                        children: [
+                          const SizedBox(height: 2.0),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7.0, vertical: 7.0),
+                            child: ShowCard(
+                              trip: trip,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  });
+                        ],
+                      );
+                    });
+              }
             }
           }
-          return const Text('Não há dados para exibir');
+          // Caso não hajam viagens sera retornado a mensagem abaixo.
+          return const SizedBox(
+            width: double.infinity,
+            height: 140,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline_outlined,
+                    size: 40,
+                  ),
+                  SizedBox(height: 8),
+                  Text('Não há viagens!'),
+                ],
+              )
+            )
+          );
         },
       ),
+      // Botão para adicionar novos registros usado bottomNavigationBar para que fique sempre no final da tela.
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: AddButton(

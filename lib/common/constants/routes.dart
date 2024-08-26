@@ -1,3 +1,4 @@
+// criado rotas do projeto nomeadas para facilitar a chamada.
 class NamedRoute {
   NamedRoute._();
 

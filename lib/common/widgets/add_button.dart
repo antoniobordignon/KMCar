@@ -17,6 +17,7 @@ class AddButton extends StatelessWidget {
 
   final BorderRadius _borderRadius = const BorderRadius.all(Radius.circular(24.0));
 
+// Botão padrão da interface para conseguir adicionar informações.
   @override
   Widget build(BuildContext context) {    
     return Material(

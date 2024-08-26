@@ -1,5 +1,5 @@
 import 'package:flutter/painting.dart';
-
+// fontes de estilização do projeto.
 class AppTextStyle {
   AppTextStyle._();
 
