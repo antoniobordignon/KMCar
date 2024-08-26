@@ -21,7 +21,7 @@ class ShowCard extends StatelessWidget {
         showGeneralDialog(
           context: context,
           barrierDismissible: true,
-          barrierLabel: 'exibirImagemDialog',
+          barrierLabel: 'DeleteImagemDialog',
           pageBuilder: (context, animation, secondaryAnimation) {
             return Container();
           },
